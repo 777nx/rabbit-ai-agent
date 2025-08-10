@@ -4,9 +4,15 @@ spring:
   profiles:
     active: local
   datasource:
-    url: jdbc:postgresql://改为你的公网地址/yu_ai_agent
-    username: 改为你的用户名
-    password: 改为你的密码
+    mysql:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/ai_agent?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+      username: 改为你的用户名
+      password: 改为你的密码
+    postgres:
+      url: jdbc:postgresql://改为你的公网地址/rabbit_ai_agent
+      username: 改为你的用户名
+      password: 改为你的密码
   ai:
     dashscope:
       api-key: your-api-key
@@ -20,12 +26,12 @@ spring:
         dimensions: 1536
         distance-type: COSINE_DISTANCE
         max-document-batch-size: 10000 # Optional: Maximum number of documents per batch
-    mcp:
-      client:
-        sse:
-          connections:
-            server1:
-              url: http://localhost:8127
+#    mcp:
+#      client:
+#        sse:
+#          connections:
+#            server1:
+#              url: http://localhost:8127
 #        stdio:
 #          servers-configuration: classpath:mcp-servers.json
 server:
@@ -56,3 +62,16 @@ search-api:
 logging:
   level:
     org.springframework.ai: DEBUG
+# mybatis-plus 配置
+mybatis-plus:
+  configuration:
+    # MyBatis 配置
+    map-underscore-to-camel-case: false
+    # 仅在开发环境中打印日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    enable-sql-runner: true
+    db-config:
+      logic-delete-field: isDelete # 全局逻辑删除的实体字段名
+      logic-delete-value: 1 # 逻辑已删除的值
+      logic-not-delete-value: 0 # 逻辑未删除的值

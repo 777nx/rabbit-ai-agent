@@ -3,6 +3,7 @@ package com.fantasy.rabbitaiagent.app;
 import com.fantasy.rabbitaiagent.advisor.MyLoggerAdvisor;
 import com.fantasy.rabbitaiagent.advisor.ReReadingAdvisor;
 import com.fantasy.rabbitaiagent.chatmemory.FileBasedChatMemory;
+import com.fantasy.rabbitaiagent.chatmemory.MySQLChatMemory;
 import com.fantasy.rabbitaiagent.rag.LoveAppRagCustomAdvisorFactory;
 import com.fantasy.rabbitaiagent.rag.QueryRewriter;
 import jakarta.annotation.Resource;
@@ -40,7 +41,7 @@ public class LoveApp {
      * 初始化 ChatClient
      * @param dashscopeChatModel
      */
-    public LoveApp(ChatModel dashscopeChatModel) {
+    public LoveApp(ChatModel dashscopeChatModel, MySQLChatMemory mySQLChatMemory) {
         // 初始化基于文件的对话记忆
         String fileDir = System.getProperty("user.dir") + "/tmp/chat-memory";
         ChatMemory chatMemory = new FileBasedChatMemory(fileDir);
