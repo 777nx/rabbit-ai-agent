@@ -37,3 +37,10 @@ knife4j:
   enable: true
   setting:
     language: zh_cn
+# searchApi
+search-api:
+  api-key: 你的 API Key
+# 修改日志级别：查看 Spring AI 更多调用细节
+logging:
+  level:
+    org.springframework.ai: DEBUG
