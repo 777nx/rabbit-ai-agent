@@ -10,6 +10,10 @@ spring:
   ai:
     dashscope:
       api-key: your-api-key
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        model: gemma3:1b
     vectorstore:
       pgvector:
         index-type: HNSW
