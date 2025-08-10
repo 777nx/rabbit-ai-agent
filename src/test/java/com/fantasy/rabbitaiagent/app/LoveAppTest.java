@@ -72,6 +72,12 @@ class LoveAppTest {
         testMessage("生成一份‘七夕约会计划’PDF，包含餐厅预订、活动流程和礼物清单");
     }
 
+    @Test
+    void doChatWithTools2() {
+        // 测试邮件发送
+        testMessage("我想发一封邮件给：1362724990@qq.com，内容是Fantasy测试专用，用html格式发送，字体加粗");
+    }
+
     private void testMessage(String message) {
         String chatId = UUID.randomUUID().toString();
         String answer = loveApp.doChatWithTools(message, chatId);
