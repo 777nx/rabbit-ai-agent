@@ -63,6 +63,12 @@
             <artifactId>spring-ai-ollama-spring-boot-starter</artifactId>
             <version>1.0.0-M6</version>
         </dependency>
+        <!-- 火山引擎SDK -->
+        <dependency>
+            <groupId>com.volcengine</groupId>
+            <artifactId>volcengine-java-sdk-ark-runtime</artifactId>
+            <version>0.1.153</version>
+        </dependency>
         <!-- LangChain4J DashScope -->
         <!-- https://mvnrepository.com/artifact/dev.langchain4j/langchain4j-community-dashscope -->
         <dependency>
