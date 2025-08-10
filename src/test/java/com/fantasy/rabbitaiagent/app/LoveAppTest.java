@@ -29,6 +29,10 @@ class LoveAppTest {
         message = "我的另一个叫什么来着？刚跟你说过，帮我回忆一下";
         answer = loveApp.doChat(message, chatId);
         Assertions.assertNotNull(answer);
+        // 违禁词测试
+//        message = "澳门赌博";
+//        answer = loveApp.doChat(message, chatId);
+//        Assertions.assertNotNull(answer);
     }
 
     @Test

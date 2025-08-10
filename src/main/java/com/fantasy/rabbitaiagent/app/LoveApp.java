@@ -2,6 +2,7 @@ package com.fantasy.rabbitaiagent.app;
 
 import com.fantasy.rabbitaiagent.advisor.MyLoggerAdvisor;
 import com.fantasy.rabbitaiagent.advisor.ReReadingAdvisor;
+import com.fantasy.rabbitaiagent.advisor.SensitiveWordAdvisor;
 import com.fantasy.rabbitaiagent.chatmemory.FileBasedChatMemory;
 import com.fantasy.rabbitaiagent.chatmemory.MySQLChatMemory;
 import com.fantasy.rabbitaiagent.rag.LoveAppRagCustomAdvisorFactory;
@@ -51,6 +52,8 @@ public class LoveApp {
                 .defaultSystem(SYSTEM_PROMPT)
                 .defaultAdvisors(
                         new MessageChatMemoryAdvisor(chatMemory),
+                        // 违禁词校验
+                        new SensitiveWordAdvisor(),
                         // 自定义日志 Advisor，可按需开启
                         new MyLoggerAdvisor()
                         // 自定义推理增强 Advisor，可按需开启
