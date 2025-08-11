@@ -107,13 +107,77 @@ CREATE DATABASE ai_agent CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 将下面这段配置修改为自己的配置
 
-![img](doc/img3.jpg)
-![img](doc/img4.jpg)
-![img](doc/img5.jpg)
+```yaml
+spring:
+  datasource:
+    mysql:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/ai_agent
+      username: 改为你的用户名
+      password: 改为你的密码
+    postgres:
+      url: jdbc:postgresql://改为你的公网地址/rabbit_ai_agent
+      username: 改为你的用户名
+      password: 改为你的密码
+  ai:
+    # 注意配置百炼的 api-key
+    dashscope:
+      api-key: your-api-key
+      chat:
+        options:
+          model: qwen-plus
+    # 配置 vectorstore 存储方式为 pgvector
+    vectorstore:
+      pgvector:
+        index-type: HNSW
+        dimensions: 1536
+        distance-type: COSINE_DISTANCE
+        max-document-batch-size: 10000 # Optional: Maximum number of documents per batch
+```
+
+```yaml
+spring:
+  # 邮件配置
+  mail:
+    host: smtp.qq.com
+    port: 465
+    username: 发件邮箱
+    password: 邮箱授权码（非登录密码）
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          ssl:
+            enable: true
+          socketFactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
+```
+
+```yaml
+# searchApi
+search-api:
+  api-key: 你的 API Key
+```
 
 此类为测试代码使用的apikey，修改为自己的配置即可
 
-![img](doc/img6.jpg)
+```java
+/**
+ * 仅用于测试获取 API Key
+ */
+public interface TestApiKey {
+
+    // 修改为你的 API Key
+    String API_KEY = "修改为你的 API Key";
+
+    // 修改为你的火山引擎 API Key
+    String VOLCENGINE_KEY = "修改为你的火山引擎 API Key";
+}
+```
 
 ### 4. 启动后端服务
 
