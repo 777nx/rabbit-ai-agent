@@ -1,11 +1,9 @@
 package com.fantasy.rabbitaiagent.app;
 
 import com.fantasy.rabbitaiagent.advisor.MyLoggerAdvisor;
-import com.fantasy.rabbitaiagent.advisor.ReReadingAdvisor;
 import com.fantasy.rabbitaiagent.advisor.SensitiveWordAdvisor;
 import com.fantasy.rabbitaiagent.chatmemory.FileBasedChatMemory;
 import com.fantasy.rabbitaiagent.chatmemory.MySQLChatMemory;
-import com.fantasy.rabbitaiagent.rag.LoveAppRagCustomAdvisorFactory;
 import com.fantasy.rabbitaiagent.rag.QueryRewriter;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -14,13 +12,13 @@ import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
 import org.springframework.ai.chat.client.advisor.api.Advisor;
 import org.springframework.ai.chat.memory.ChatMemory;
-import org.springframework.ai.chat.memory.InMemoryChatMemory;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.tool.ToolCallback;
 import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 
@@ -79,6 +77,23 @@ public class LoveApp {
         String content = chatResponse.getResult().getOutput().getText();
         log.info("content: {}", content);
         return content;
+    }
+
+    /**
+     * AI 基础对话（支持多轮对话记忆，SSE 流式传输）
+     *
+     * @param message
+     * @param chatId
+     * @return
+     */
+    public Flux<String> doChatByStream(String message, String chatId) {
+        return chatClient
+                .prompt()
+                .user(message)
+                .advisors(spec -> spec.param(CHAT_MEMORY_CONVERSATION_ID_KEY, chatId)
+                        .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 10))
+                .stream()
+                .content();
     }
 
     record LoveReport(String title, List<String> suggestions) {
