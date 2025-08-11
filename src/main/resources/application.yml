@@ -9,10 +9,11 @@ spring:
       url: jdbc:mysql://localhost:3306/ai_agent?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
       username: 改为你的用户名
       password: 改为你的密码
-    postgres:
-      url: jdbc:postgresql://改为你的公网地址/rabbit_ai_agent
-      username: 改为你的用户名
-      password: 改为你的密码
+    # 临时注释掉，便于大家开发调试和部署（实际填写 PgVector 数据库信息）
+#    postgres:
+#      url: jdbc:postgresql://改为你的公网地址/rabbit_ai_agent
+#      username: 改为你的用户名
+#      password: 改为你的密码
   ai:
     # 注意配置百炼的 api-key
     dashscope:
@@ -24,13 +25,15 @@ spring:
       base-url: http://localhost:11434
       chat:
         model: gemma3:1b
+    # 临时注释掉，便于大家开发调试和部署（实际需要启动 PgVector 数据库）
     # 配置 vectorstore 存储方式为 pgvector
-    vectorstore:
-      pgvector:
-        index-type: HNSW
-        dimensions: 1536
-        distance-type: COSINE_DISTANCE
-        max-document-batch-size: 10000 # Optional: Maximum number of documents per batch
+#    vectorstore:
+#      pgvector:
+#        index-type: HNSW
+#        dimensions: 1536
+#        distance-type: COSINE_DISTANCE
+#        max-document-batch-size: 10000 # Optional: Maximum number of documents per batch
+    # 临时注释掉，便于大家开发调试和部署（实际需要启动 MCP 服务）
 #    mcp:
 #      client:
 #        sse:
@@ -80,6 +83,7 @@ knife4j:
     language: zh_cn
 # searchApi
 search-api:
+  # 需要替换为你自己的 key
   api-key: 你的 API Key
 # 修改日志级别：查看 Spring AI 更多调用细节
 logging:
